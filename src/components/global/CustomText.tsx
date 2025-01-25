@@ -2,7 +2,7 @@ import { Fonts } from "@/constants/Fonts";
 import React, { FC, ReactNode } from "react";
 import { Platform, Text, TextStyle } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-import { StyleSheet, useUnistyles } from "react-native-unistyles";
+import { StyleSheet } from "react-native-unistyles";
 
 type Variant = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "h7";
 type PlatformType = "ios" | "android";
@@ -73,8 +73,6 @@ const CustomText: FC<CustomTextProps> = ({
     fontFamily,
   };
 
-  const { theme } = useUnistyles();
-
   return (
     <Text
       onLayout={onLayout}
@@ -82,7 +80,6 @@ const CustomText: FC<CustomTextProps> = ({
         styles.text,
         {
           fontSize: computedFontSize,
-          color: theme.Colors.typography,
         },
         fontFamilyStyle,
         style,
@@ -99,6 +96,6 @@ export default CustomText;
 
 const styles = StyleSheet.create((theme) => ({
   text: {
-    //color: theme.Colors.typography,
+    color: theme.Colors.typography,
   },
 }));

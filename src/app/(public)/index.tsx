@@ -2,22 +2,25 @@ import CustomButton from "@/components/global/CustomButton";
 import CustomText from "@/components/global/CustomText";
 import LanguageModal from "@/components/global/LanguageModal";
 import { appName } from "@/constants";
-import { Colors } from "@/constants/Colors";
 import { Fonts } from "@/constants/Fonts";
 import { useLanguage } from "@/hooks/useLanguage";
-import { AntDesign } from "@expo/vector-icons";
+import { useSettingsStore } from "@/store/settingsStore";
+import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { TouchableOpacity, View } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { moderateScale } from "react-native-size-matters";
-import { StyleSheet } from "react-native-unistyles";
+import { StyleSheet, useUnistyles } from "react-native-unistyles";
 
 const HEADER_ICON_SIZE = RFValue(12);
 
 const OnboardingScreen = () => {
   const { t } = useTranslation();
+  const { theme } = useUnistyles();
+  const currTheme = useSettingsStore((state) => state.theme);
+  const setTheme = useSettingsStore((state) => state.setTheme);
 
   const {
     selectedLanguage,
@@ -27,33 +30,45 @@ const OnboardingScreen = () => {
     handleChangeLanguage,
   } = useLanguage();
 
-  console.log(selectedLanguage);
-
   return (
     <View style={styles.container}>
       {/* Header */}
-      <TouchableOpacity
-        onPress={() => setLanguageModalVisible(true)}
-        style={styles.header}
-        activeOpacity={0.8}
-      >
-        <CustomText
-          fontFamily={Fonts.Medium}
-          variant="h6"
-          style={styles.headerText}
+      <View style={styles.header}>
+        <TouchableOpacity
+          onPress={() => setLanguageModalVisible(true)}
+          activeOpacity={0.8}
+          style={styles.headerLanguage}
         >
-          {selectedLanguage}
-        </CustomText>
-        <AntDesign
-          name="down"
-          size={HEADER_ICON_SIZE}
-          color={Colors.darkGray[500]}
-        />
-      </TouchableOpacity>
+          <CustomText
+            fontFamily={Fonts.Medium}
+            variant="h6"
+            style={styles.headerText}
+          >
+            {selectedLanguage}
+          </CustomText>
+          <AntDesign
+            name="down"
+            size={HEADER_ICON_SIZE}
+            color={theme.Colors.gray[500]}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => {
+            setTheme(currTheme === "light" ? "dark" : "light");
+          }}
+        >
+          <MaterialCommunityIcons
+            name="theme-light-dark"
+            size={24}
+            color={theme.Colors.gray[500]}
+          />
+        </TouchableOpacity>
+      </View>
 
       {/* Content */}
       <Image
-        source={require("@/assets/images/icon.png")}
+        source={require("@/assets/images/adaptive-icon.png")}
         contentFit="cover"
         style={styles.image}
       />
@@ -102,12 +117,19 @@ const styles = StyleSheet.create((theme, rt) => ({
     flexDirection: "row",
     alignItems: "center",
     position: "absolute",
-    top: rt.insets.top,
+    top: rt.insets.top + 10,
+    width: "100%",
+    justifyContent: "space-between",
+  },
+  headerLanguage: {
+    flexDirection: "row",
+    alignItems: "center",
     gap: 5,
   },
   image: {
-    width: moderateScale(300),
+    width: moderateScale(200),
     aspectRatio: 1,
+    marginVertical: 20,
   },
   headerText: {
     fontSize: RFValue(14),

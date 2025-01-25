@@ -1,5 +1,6 @@
 import ToastConfig from "@/components/toast/ToastConfig";
 import useUpdates from "@/hooks/useUpdates";
+import CustomThemeProvider from "@/theme/CustomThemeProvider";
 import { tokenCache } from "@/utils/cache";
 import { ClerkProvider, useAuth } from "@clerk/clerk-expo";
 import * as Sentry from "@sentry/react-native";
@@ -13,6 +14,7 @@ import * as Updates from "expo-updates";
 import LottieView from "lottie-react-native";
 import React, { useEffect } from "react";
 import { LogBox, View } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { moderateScale } from "react-native-size-matters";
 import Toast from "react-native-toast-message";
@@ -119,7 +121,11 @@ const InitialLayout = () => {
     );
   }
 
-  return <Slot />;
+  return (
+    <CustomThemeProvider>
+      <Slot />
+    </CustomThemeProvider>
+  );
 };
 
 const RootLayout = () => {
@@ -138,7 +144,9 @@ const RootLayout = () => {
       publishableKey={CLERK_PUBLISHABLE_KEY!}
       tokenCache={tokenCache}
     >
-      <InitialLayout />
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <InitialLayout />
+      </GestureHandlerRootView>
       <Toast config={ToastConfig} position="top" topOffset={top + 15} />
     </ClerkProvider>
   );
