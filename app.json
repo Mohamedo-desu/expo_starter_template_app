@@ -1,0 +1,80 @@
+{
+  "expo": {
+    "name": "expo_starter_template",
+    "slug": "expo_starter_template",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "softwareKeyboardLayoutMode": "pan"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
+        }
+      ],
+      [
+        "expo-updates",
+        {
+          "username": "mohamedo-desu"
+        }
+      ],
+      [
+        "@sentry/react-native/expo",
+        {
+          "url": "https://sentry.io/",
+          "organization": "mohamedo-apps-desu",
+          "project": "sample"
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "",
+          "color": "",
+          "sounds": []
+        }
+      ],
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Okra-Bold.ttf",
+            "./assets/fonts/Okra-ExtraBold.ttf",
+            "./assets/fonts/Okra-Medium.ttf",
+            "./assets/fonts/Okra-MediumLight.ttf",
+            "./assets/fonts/Okra-Regular.ttf"
+          ]
+        }
+      ],
+      "expo-secure-store"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "4627a727-441a-433c-a50f-ad34734c7e53"
+      }
+    }
+  }
+}
