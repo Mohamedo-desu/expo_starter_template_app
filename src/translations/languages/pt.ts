@@ -1,4 +1,4 @@
-const pt = {
+export const pt = {
   translation: {
     onboarding: {
       description:

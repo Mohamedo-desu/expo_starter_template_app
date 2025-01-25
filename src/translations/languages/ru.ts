@@ -1,4 +1,4 @@
-const ru = {
+export const ru = {
   translation: {
     onboarding: {
       description:

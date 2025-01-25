@@ -1,4 +1,4 @@
-const hi = {
+export const hi = {
   translation: {
     onboarding: {
       description:

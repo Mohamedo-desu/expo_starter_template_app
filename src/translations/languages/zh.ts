@@ -1,4 +1,4 @@
-const zh = {
+export const zh = {
   translation: {
     onboarding: {
       description: "设计用于帮助您分享、连接和探索您的热情",

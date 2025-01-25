@@ -16,7 +16,8 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "softwareKeyboardLayoutMode": "pan"
+      "softwareKeyboardLayoutMode": "pan",
+      "package": "com.mohamedodesu.expo_starter_template"
     },
     "plugins": [
       "expo-router",
@@ -75,6 +76,12 @@
       "eas": {
         "projectId": "4627a727-441a-433c-a50f-ad34734c7e53"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/4627a727-441a-433c-a50f-ad34734c7e53"
     }
   }
 }

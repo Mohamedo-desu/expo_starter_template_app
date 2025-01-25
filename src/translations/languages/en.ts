@@ -1,8 +1,7 @@
-const en = {
+export const en = {
   translation: {
     onboarding: {
-      description:
-        "Designed to help you share, connect, and explore your passions",
+      description: "Start Building",
       get_started: "Get Started",
     },
     signIn: {

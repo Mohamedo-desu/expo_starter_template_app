@@ -1,4 +1,4 @@
-const sw = {
+export const sw = {
   translation: {
     onboarding: {
       description:

@@ -1,4 +1,4 @@
-const ko = {
+export const ko = {
   translation: {
     onboarding: {
       description:

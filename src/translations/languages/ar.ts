@@ -1,4 +1,4 @@
-const ar = {
+export const ar = {
   translation: {
     onboarding: {
       description: "تم تصميمه لمساعدتك في المشاركة والتواصل واستكشاف شغفك",
