@@ -1,15 +1,18 @@
 import CustomButton from "@/components/global/CustomButton";
 import CustomText from "@/components/global/CustomText";
 import LanguageModal from "@/components/global/LanguageModal";
+import ThemeModal from "@/components/global/ThemeModal";
 import { appName } from "@/constants";
+import { Colors } from "@/constants/Colors";
 import { Fonts } from "@/constants/Fonts";
 import { useLanguage } from "@/hooks/useLanguage";
-import { useSettingsStore } from "@/store/settingsStore";
-import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
-import React from "react";
+import { router } from "expo-router";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { TouchableOpacity, View } from "react-native";
+import CountryFlag from "react-native-country-flag";
 import { RFValue } from "react-native-responsive-fontsize";
 import { moderateScale } from "react-native-size-matters";
 import { StyleSheet, useUnistyles } from "react-native-unistyles";
@@ -19,9 +22,7 @@ const HEADER_ICON_SIZE = RFValue(12);
 const OnboardingScreen = () => {
   const { t } = useTranslation();
   const { theme } = useUnistyles();
-  const currTheme = useSettingsStore((state) => state.theme);
-  const setTheme = useSettingsStore((state) => state.setTheme);
-
+  const [themeModalVisible, setThemeModalVisible] = useState(false);
   const {
     selectedLanguage,
     setLanguageModalVisible,
@@ -39,12 +40,13 @@ const OnboardingScreen = () => {
           activeOpacity={0.8}
           style={styles.headerLanguage}
         >
-          <CustomText
-            fontFamily={Fonts.Medium}
-            variant="h6"
-            style={styles.headerText}
-          >
-            {selectedLanguage}
+          <CountryFlag
+            isoCode={selectedLanguage.flag}
+            size={HEADER_ICON_SIZE}
+            style={styles.flagIcon}
+          />
+          <CustomText fontFamily={Fonts.Medium} style={styles.headerText}>
+            {selectedLanguage.name}
           </CustomText>
           <AntDesign
             name="down"
@@ -53,15 +55,14 @@ const OnboardingScreen = () => {
           />
         </TouchableOpacity>
         <TouchableOpacity
+          onPress={() => setThemeModalVisible(true)}
           activeOpacity={0.8}
-          onPress={() => {
-            setTheme(currTheme === "light" ? "dark" : "light");
-          }}
+          hitSlop={20}
         >
-          <MaterialCommunityIcons
-            name="theme-light-dark"
-            size={24}
-            color={theme.Colors.gray[500]}
+          <Ionicons
+            name="color-palette"
+            size={RFValue(20)}
+            color={Colors.primary}
           />
         </TouchableOpacity>
       </View>
@@ -86,7 +87,7 @@ const OnboardingScreen = () => {
 
       <CustomButton
         text={t("onboarding.get_started")}
-        onPress={() => undefined}
+        onPress={() => router.navigate("/(public)/sign_in")}
         style={styles.button}
         textStyle={styles.buttonText}
       />
@@ -97,6 +98,10 @@ const OnboardingScreen = () => {
         onClose={() => setLanguageModalVisible(false)}
         languages={languages}
         onLanguageSelect={handleChangeLanguage}
+      />
+      <ThemeModal
+        visible={themeModalVisible}
+        onClose={() => setThemeModalVisible(false)}
       />
     </View>
   );
@@ -153,4 +158,5 @@ const styles = StyleSheet.create((theme, rt) => ({
     fontFamily: Fonts.SemiBold,
     fontSize: RFValue(16),
   },
+  flagIcon: {},
 }));
